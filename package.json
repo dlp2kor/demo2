@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . -o cypress/reports/lintreports/eslint.html -f html",
-    "qa": "npx cypress run --browser ${BROWSER}",
+    "qa": "npx cypress run --env = qa --browser ${BROWSER}",
     "dev": "npx cypress run --env = dev --browser ${BROWSER}",
     "cleanup": "node cleanup-report.js"
   },
