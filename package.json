@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . -o cypress/reports/lintreports/eslint.html -f html",
-    "cleanup": "rm cypress/reports",
     "qa": "npx cypress run --env = qa --browser ${BROWSER}",
-    "dev": "npx cypress run --env = dev --browser ${BROWSER}"
-    "cleanup": "node cleanup-report.js",
+    "dev": "npx cypress run --env = dev --browser ${BROWSER}",
+    "cleanup": "node cleanup-report.js"
   },
   "author": "TOP99 Sharing Platform",
   "license": "ISC",
