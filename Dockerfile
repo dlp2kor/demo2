@@ -15,8 +15,7 @@ WORKDIR /Top99TestAutomation
 COPY . .
 
 # Install the cypress dependencies in the work directory
-RUN npm i &&\
-    npx cypress info
+RUN npm i
 
 # Executable commands the container will use[Exec Form]
 
