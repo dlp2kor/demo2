@@ -13,8 +13,19 @@ module.exports = defineConfig({
     video: true,
   e2e: {
     setupNodeEvents (on, config) {
-      on('after:run', () => {
+      on('after:run', (results) => {
+          // Get the browser parameter from the environment
+    const browser = process.env.BROWSER || 'Unknown';
+
+    // Generate the HTML report after the test run
         report.generate({
+           metadata: {
+        browser: {
+          name: 'Browser',
+          value: browser,
+        },
+        // Add more metadata as needed
+      },
           jsonDir: 'cypress/reports/cucumber-json',//path of json file
           reportPath: 'cypress/reports'// path of reports
         });
@@ -22,7 +33,7 @@ module.exports = defineConfig({
       on('file:preprocessor', cucumber())
       return fetchConfigurationByFile(config.env.configFile || "qa") || config;  //qa will be the default env if not mentioned.
     },
-    specPattern: "cypress/e2e/consumer/customSpecOrder.js", //will refer the featurefiles steps
+    specPattern: "cypress/e2e/consumer/**/*.feature", //will refer the featurefiles steps
   }
 }
 );
