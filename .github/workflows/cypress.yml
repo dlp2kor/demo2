@@ -16,11 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Build Docker Image
-        run: |
-          docker build -t myimg -f Dockerfile .
-          docker images
 
       - name: Build and run Cypress tests
         run: |
