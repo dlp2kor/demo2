@@ -1,0 +1,37 @@
+{
+  "name": "cypress_cucumber",
+  "version": "2.0.0",
+  "description": "Automation testing",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . -o cypress/reports/lintreports/eslint.html -f html",
+    "cleanup": "rm cypress/reports",
+    "qa": "npx cypress run --env = qa --browser ${BROWSER}",
+    "dev": "npx cypress run --env = dev --browser ${BROWSER}"
+    "cleanup": "node cleanup-report.js",
+  },
+  "author": "TOP99 Sharing Platform",
+  "license": "ISC",
+  "dependencies": {
+    "cucumber-html-reporter": "^7.1.1",
+    "cypress": "^12.17.4",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "eslint-plugin-eslint-plugin": "^5.1.1",
+    "multiple-cucumber-html-reporter": "^3.4.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "cypress/e2e/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/reports/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^8.51.0",
+    "eslint-plugin-cucumber": "^2.0.0",
+    "eslint-plugin-cypress": "^2.14.0"
+  }
+}
