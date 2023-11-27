@@ -1,0 +1,50 @@
+name: Cypress Tests 
+on:
+  push:
+    branches:
+
+      - 'QA' # Specify the branch name you want to trigger the workflow on
+      - 'Integration'
+      - 'master'  
+jobs:
+  build:
+
+    runs-on: 
+      labels: runner-base
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build Docker Image
+        run: |
+          docker build -t myimg -f Dockerfile .
+          docker images
+      - name: check folder
+        run: |
+          pwd
+          ls -al
+      - name: Run Cypress Tests in Docker Container
+        run: |
+          docker run --rm  \
+            -v ${{ github.workspace }}/artifacts/screenshots:/Top99TestAutomation/cypress/screenshots \
+            -v ${{ github.workspace }}/artifacts/videos:/Top99TestAutomation/cypress/videos \
+            -v ${{ github.workspace }}/artifacts/reports:/Top99TestAutomation/cypress/reports myimg           
+      - name: Upload Test Screenshots
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: cypress-results-screenshots
+          path: ./artifacts/screenshots 
+      - name: Upload Test videos 
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+            name: cypress-results-videos
+
+            path: ./artifacts/videos          
+      - name: Upload Test result 
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+            name: cypress-results-reports 
+            path: ./artifacts/reports
+       
